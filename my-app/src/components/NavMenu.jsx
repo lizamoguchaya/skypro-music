@@ -1,16 +1,21 @@
+
+import { useState } from 'react';
 import './NavMenu.css'
 
+
 function NavMenu() {
+  const [visible, setVisible] = useState(false);
+ const burgerClick = () => setVisible(!visible);
   return  ( <nav className="main__nav nav">
     <div className="nav__logo logo">
       <img className="logo__image" src="img/logo.png" alt="logo" />
     </div>
-    <div className="nav__burger burger">
+    <div className="nav__burger burger" onClick={burgerClick}>
       <span className="burger__line"></span>
       <span className="burger__line"></span>
       <span className="burger__line"></span>
     </div>
-    <div className="nav__menu menu">
+    {visible && (<div className="nav__menu menu">
       <ul className="menu__list">
         <li className="menu__item">
           <a href="#" className="menu__link">Главное</a>
@@ -23,6 +28,7 @@ function NavMenu() {
         </li>
       </ul>
     </div>
+    )}
   </nav>
 
     );
