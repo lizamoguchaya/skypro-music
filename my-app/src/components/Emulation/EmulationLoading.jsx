@@ -12,7 +12,7 @@ function EmulationTracklist () {
                 <div className="playlist-title__col col03">АЛЬБОМ</div>
                 <div className="playlist-title__col col04">
                   <svg className="playlist-title__svg" alt="time">
-                    <use xlinkHref="img/icon/sprite.svg#icon-watch"></use>
+                    <use xlinkHref="/icon/sprite.svg#icon-watch"></use>
                   </svg>
                 </div>
               </div>
@@ -22,7 +22,7 @@ function EmulationTracklist () {
                     <div className="track__title">
                       <div className="track__title-image">
                       <svg className="track__title-svg" alt="music">
-                          <use xlinkHref="img/icon/sprite.svg#icon-note"></use>
+                          <use xlinkHref="/icon/sprite.svg#icon-note"></use>
                         </svg>
                       </div>
                       <div className="track__title-text">
@@ -540,12 +540,12 @@ function EmulationSidebar() {
                 </div>
                 <div className="player__btn-play _btn">
                   <svg className="player__btn-play-svg" alt="play">
-                    <use xlinkHref="img/icon/sprite.svg#icon-play"></use>
+                    <use xlinkHref="/icon/sprite.svg#icon-play"></use>
                   </svg>
                 </div>
                 <div className="player__btn-next">
                   <svg className="player__btn-next-svg" alt="next">
-                    <use xlinkHref="img/icon/sprite.svg#icon-next"></use>
+                    <use xlinkHref="/icon/sprite.svg#icon-next"></use>
                   </svg>
                 </div>
                 <div className="player__btn-repeat _btn-icon">
