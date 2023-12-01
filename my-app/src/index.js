@@ -1,15 +1,19 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import './index.css';
+// import './index.css';
 import './App.css'
 import App from './App.jsx';
+import { IndexStyles } from "./index.styles.js";
 import { ShowEmulationApp } from "./components/Emulation/EmulationApp.jsx";
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
+  <>
+  <IndexStyles />
   <React.StrictMode>
   <ShowEmulationApp />;{/* <App /> */}
   </React.StrictMode>
+  </>
 );
 
 // If you want to start measuring performance in your app, pass a function
