@@ -1,19 +1,19 @@
-import './Sidebar.css'
+import * as Styled from './Sidebar.js'
 import Playlists from '../Playlists/Playlists.jsx';
 
 function Sidebar() {
   return (
-    <div className="main__sidebar sidebar">
-      <div className="sidebar__personal">
-        <p className="sidebar__personal-name">Sergey.Ivanov</p>
-        <div className="sidebar__icon">
+    <Styled.MainSidebar>
+      <Styled.SidebarPersonal>
+        <Styled.SidebarPersonalName>Sergey.Ivanov</Styled.SidebarPersonalName>
+        <Styled.SidebarIcon>
           <svg alt="logout">
             <use xlinkHref="/icon/sprite.svg#logout"></use>
           </svg>
-        </div>
-      </div>
+        </Styled.SidebarIcon>
+      </Styled.SidebarPersonal>
       <Playlists />
-    </div>
+    </Styled.MainSidebar>
 
   );
 }
