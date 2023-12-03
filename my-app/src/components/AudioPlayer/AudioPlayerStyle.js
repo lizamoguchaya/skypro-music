@@ -1,28 +1,28 @@
-.bar {
+import { styled } from "styled-components";
+
+export const Bar = styled.div`
   position: absolute;
   bottom: 0;
   left: 0;
   width: 100%;
   background: rgba(28, 28, 28, 0.5);
-}
+`;
 
-.bar__content {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-  -ms-flex-direction: column;
-  flex-direction: column;
-}
+export const BarContent = styled.div`
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background: rgba(28, 28, 28, 0.5);
+`;
 
-.bar__player-progress {
+export const BarPlayerProgress = styled.div`
   width: 100%;
   height: 5px;
   background: #2e2e2e;
-}
+`;
 
-.bar__player-block {
+export const BarPlayerBlock = styled.div`
   height: 73px;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -34,9 +34,9 @@
   -webkit-box-pack: justify;
   -ms-flex-pack: justify;
   justify-content: space-between;
-}
+`;
 
-.bar__player {
+export const BarPlayer = styled.div`
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -50,9 +50,9 @@
   -webkit-box-pack: start;
   -ms-flex-pack: start;
   justify-content: flex-start;
-}
+`;
 
-.bar__volume-block {
+export const VolumeBlock = styled.div`
   width: auto;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -61,9 +61,9 @@
   -ms-flex-align: center;
   align-items: center;
   padding: 0 92px 0 0;
-}
+`;
 
-.player__controls {
+export const PlayerControls = styled.div`
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -72,81 +72,9 @@
   -ms-flex-direction: row;
   flex-direction: row;
   padding: 0 27px 0 31px;
-}
+`;
 
-.player__btn-prev,
-.player__btn-play,
-.player__btn-next,
-.player__btn-repeat,
-.player__btn-shuffle {
-  padding: 5px;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-}
-
-.player__btn-prev {
-  margin-right: 23px;
-}
-
-.player__btn-prev-svg {
-  width: 15px;
-  height: 14px;
-}
-
-.player__btn-play {
-  margin-right: 23px;
-}
-
-.player__btn-play-svg {
-  width: 22px;
-  height: 20px;
-  fill: #d9d9d9;
-}
-
-.player__btn-next {
-  margin-right: 28px;
-  fill: #a53939;
-}
-
-.player__btn-next-svg {
-  width: 15px;
-  height: 14px;
-  fill: inherit;
-  stroke: #d9d9d9;
-}
-
-.player__btn-repeat {
-  margin-right: 24px;
-}
-
-.player__btn-repeat-svg {
-  width: 18px;
-  height: 12px;
-  fill: transparent;
-  stroke: #696969;
-}
-
-.player__btn-shuffle {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-}
-
-.player__btn-shuffle-svg {
-  width: 19px;
-  height: 12px;
-  fill: transparent;
-  stroke: #696969;
-}
-
-.player__track-play {
+export const PlayerTrackPlay = styled.div`
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -154,9 +82,102 @@
   -webkit-box-direction: normal;
   -ms-flex-direction: row;
   flex-direction: row;
-}
+`;
 
-.track-play__contain {
+export const PlayerBtnPrev = styled.div`
+  padding: 5px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  margin-right: 23px;
+`;
+
+export const PlayerBtnPrevSvg = styled.svg`
+  width: 15px;
+  height: 14px;
+`;
+
+export const PlayerBtnPlay = styled.div`
+  padding: 5px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  margin-right: 23px;
+`;
+
+export const PlayerBtnPlaySvg = styled.svg`
+  width: 22px;
+  height: 20px;
+  fill: #d9d9d9;
+`;
+
+export const PlayerBtnNext = styled.div`
+  padding: 5px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  margin-right: 28px;
+  fill: #a53939;
+`;
+
+export const PlayerBtnNextSvg = styled.svg`
+  width: 15px;
+  height: 14px;
+  fill: inherit;
+  stroke: #d9d9d9;
+`;
+
+export const PlayerBtnRepeat = styled.div`
+  margin-right: 24px;
+  padding: 5px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+`;
+
+export const PlayerBtnRepeatSvg = styled.svg`
+  width: 18px;
+  height: 12px;
+  fill: transparent;
+  stroke: #696969;
+`;
+
+export const PlayerBtnShuffle = styled.div`
+  padding: 5px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+`;
+
+export const PlayerBtnShuffleSvg = styled.svg`
+  width: 19px;
+  height: 12px;
+  fill: transparent;
+  stroke: #696969;
+`;
+
+export const TrackPlayContain = styled.div`
   width: auto;
   display: -ms-grid;
   display: grid;
@@ -166,9 +187,9 @@
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center;
-}
+`;
 
-.track-play__image {
+export const TrackPlayImage = styled.div`
   width: 51px;
   height: 51px;
   background-color: #313131;
@@ -186,47 +207,47 @@
   -ms-grid-row-span: 2;
   -ms-grid-column: 1;
   grid-area: image;
-}
+`;
 
-.track-play__svg {
+export const TrackPlaySvg = styled.svg`
   width: 18px;
   height: 17px;
   fill: transparent;
   stroke: #4e4e4e;
-}
+`;
 
-.track-play__author {
+export const TrackPlayAuthor = styled.div`
   -ms-grid-row: 1;
   -ms-grid-column: 2;
   grid-area: author;
   min-width: 49px;
-}
+`;
 
-.track-play__author-link {
+export const TrackPlayAuthorLink = styled.a`
   font-style: normal;
   font-weight: 400;
   font-size: 16px;
   line-height: 24px;
   color: #ffffff;
   white-space: nowrap;
-}
+`;
 
-.track-play__album {
+export const TrackPlayAlbum = styled.div`
   -ms-grid-row: 2;
   -ms-grid-column: 2;
   grid-area: album;
   min-width: 49px;
-}
+`;
 
-.track-play__album-link {
+export const TrackPlayAlbumLink = styled.a`
   font-style: normal;
   font-weight: 400;
   font-size: 13px;
   line-height: 24px;
   color: #ffffff;
-}
+`;
 
-.track-play__like-dis {
+export const TrackPlayLikeDis = styled.div`
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -238,32 +259,32 @@
   -ms-flex-align: center;
   align-items: center;
   margin-left: 26%;
-}
+`;
 
-.track-play__like,
-.track-play__dislike {
+export const TrackPlayLike = styled.div`
   padding: 5px;
-}
+`;
 
-.track-play__like-svg {
+export const TrackPlayLikeSvg = styled.svg`
   width: 14px;
   height: 12px;
   fill: transparent;
   stroke: #696969;
-}
+`;
 
-.track-play__dislike {
+export const TrackPlayDislike = styled.div`
   margin-left: 28.5px;
-}
+  padding: 5px;
+`;
 
-.track-play__dislike-svg {
+export const TrackPlayDislikeSvg = styled.svg`
   width: 14.34px;
   height: 13px;
   fill: transparent;
   stroke: #696969;
-}
+`;
 
-.volume__content {
+export const VolumeContent = styled.div`
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -277,24 +298,24 @@
   -webkit-box-pack: flex-end;
   -ms-flex-pack: flex-end;
   justify-content: flex-end;
-}
+`;
 
-.volume__image {
+export const VolumeImage = styled.div`
   width: 13px;
   height: 18px;
   margin-right: 17px;
-}
+`;
 
-.volume__svg {
+export const VolumeSvg = styled.svg`
   width: 13px;
   height: 18px;
   fill: transparent;
-}
+`;
 
-.volume__progress {
+export const VolumeProgress = styled.div`
   width: 109px;
-}
+`;
 
-.volume__progress-line {
+export const VolumeProgressLine = styled.input`
   width: 109px;
-}
+`;

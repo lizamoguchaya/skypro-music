@@ -1,10 +1,6 @@
-a {
-  text-decoration: none;
-  color: inherit;
-  cursor: pointer;
-}
+import { styled } from "styled-components";
 
-.centerblock__filter {
+export const CenterblockFilter = styled.div`
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -17,17 +13,17 @@ a {
   align-items: center;
   margin-bottom: 51px;
   gap: 10px;
-}
+`;
 
-.filter__title {
+export const FilterTitle = styled.div`
   font-style: normal;
   font-weight: 400;
   font-size: 16px;
   line-height: 24px;
   margin-right: 15px;
-}
+`;
 
-.filter__button {
+export const FilterButton = styled.div`
   font-style: normal;
   font-weight: 400;
   font-size: 16px;
@@ -37,26 +33,23 @@ a {
   padding: 6px 20px;
   text-align: center;
   position: relative;
-}
 
-._btn-text:hover {
-  border-color: #d9b6ff;
-  color: #d9b6ff;
-  cursor: pointer;
-}
+  border-color: ${(props) => (props.isOpen ? "#ad61ff" : "")};
+  color: ${(props) => (props.isOpen ? "#ad61ff" : "")};
 
-._btn-text:active {
-  border-color: #ad61ff;
-  color: #ad61ff;
-  cursor: pointer;
-}
+  &:hover {
+    border-color: #d9b6ff;
+    color: #d9b6ff;
+    cursor: pointer;
+  }
 
-.filter-active-button {
-  border-color: #ad61ff;
-  color: #ad61ff;
-}
+  &:active {
+    border-color: #ad61ff;
+    color: #ad61ff;
+    cursor: pointer;
+`;
 
-.filter-popup {
+export const FilterPopup = styled.div`
   margin-top: 10px;
   width: 248px;
   height: 305px;
@@ -70,14 +63,14 @@ a {
   line-height: 24px;
   overflow-y: auto;
   position: absolute;
-}
 
-.filter-popup li:hover {
-  color: #b672ff;
-  text-decoration-line: underline;
-}
+  .filter-popup div:hover {
+    color: #b672ff;
+    text-decoration-line: underline;
+  }
+`;
 
-.filter-popup-scrollable {
+export const FilterPopupScrollable = styled.div`
   display: flex;
   flex-direction: column;
   overflow-y: auto;
@@ -86,20 +79,18 @@ a {
   padding: 0;
   max-height: 237px;
 
-  /* Стили для полосы прокрутки */
   scrollbar-color: #ffffff #4b4949; /* Для Firefox */
   scrollbar-width: thin; /* Для Firefox */
-}
 
-/* Стили для полосы прокрутки в WebKit-браузерах (Chrome, Safari) */
-.filter-popup-scrollable::-webkit-scrollbar {
-  width: 4px;
-}
+  &::-webkit-scrollbar {
+    width: 4px;
+  }
 
-.filter-popup-scrollable::-webkit-scrollbar-thumb {
-  background-color: #ffffff; /* Цвет ползунка скроллбара сверху */
-}
+  &::-webkit-scrollbar-thumb {
+    background-color: #ffffff;
+  }
 
-.filter-popup-scrollable::-webkit-scrollbar-track {
-  background-color: #4b4949; /* Цвет трека (фона) скроллбара снизу */
-}
+  &::-webkit-scrollbar-track {
+    background-color: #4b4949;
+  }
+`;
