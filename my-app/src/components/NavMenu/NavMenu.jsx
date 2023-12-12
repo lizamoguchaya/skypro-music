@@ -1,11 +1,20 @@
 import { useState } from 'react';
 import * as S from './NavMenuStyles.js'
-
+import { useNavigate } from "react-router-dom";
 
 const NavMenu = () => {
   const [visible, setVisible] = useState(false);
 
   const burgerClick = () => setVisible(!visible);
+
+  const activeClassName = "underline";
+
+  const navigate = useNavigate();
+  const handleLogout = () => {
+    localStorage.removeItem("user");
+    navigate("/login");
+  };
+
 
   return (
     <S.MainNav>
@@ -27,7 +36,7 @@ const NavMenu = () => {
               <S.MenuLink href="#">Мой плейлист</S.MenuLink>
             </S.MenuItem>
             <S.MenuItem>
-              <S.MenuLink href="../signin.html">Войти</S.MenuLink>
+            <S.Button onClick={handleLogout}>Выйти</S.Button>
             </S.MenuItem>
           </S.MenuList>
         </S.NavMenu>
