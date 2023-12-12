@@ -1,10 +1,10 @@
 import { Routes, Route } from "react-router-dom";
-import { Main } from "./pages/main(tracks)";
-import { NotFound } from "./pages/not-found";
+import { Main } from "./pages/main/index.jsx";
+import { NotFound } from "./pages/NotFound/index.jsx";
 import { Login } from "./pages/login/login";
-import { Registration } from "./pages/registration";
-import { Category } from "./pages/category/CategoryPage.jsx";
-import { Favorites } from "./pages/favorites";
+import { Registration } from "./pages/registration/index.jsx";
+import { Category } from "./pages/Category/ CategoryPage.jsx"
+import { Favorites } from "./pages/favorites/index.js";
 import { ProtectedRoute } from "./components/protected-route";
 import PropTypes from "prop-types";
 
@@ -26,7 +26,7 @@ export const AppRoutes = ({ user, setUser }) => {
   );
 };
 
-// Валидация PropTypes
+
 AppRoutes.propTypes = {
   user: PropTypes.oneOfType([PropTypes.string, PropTypes.oneOf([null])]),
   setUser: PropTypes.func.isRequired,

@@ -1,7 +1,7 @@
 import { Categories } from "../../constants.js";
 import { GlobalStyle } from "../../App.styles.js";
 import { useParams } from "react-router-dom";
-import * as S from "../PagesStyles.js";
+import * as S from "../PageStyles.js";
 
 export const Category = () => {
   const params = useParams();
