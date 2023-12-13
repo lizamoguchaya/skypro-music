@@ -5,7 +5,14 @@ import { AppRoutes } from "./routes.jsx";
 
 
 function App() {
-  const [user, setUser] = useState(null);
+  const getDataFromLS = () => {
+  const data = localStorage. getItem("user");
+  if (data) {
+  return JSON.parse (data);
+  }
+  return null;
+  };
+  const [user, setUser] = useState (getDataFromLS ()) ;
 
   return (
     <>
