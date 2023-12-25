@@ -15,15 +15,15 @@ function AudioPlayer({
     alert("Еще не реализовано");
   };
 
-  const [currentTime, setCurrentTime] = useState(0); //текущее время воспроизведения аудио
+  const [currentTime, setCurrentTime] = useState(0); 
 
-  const duration = audioRef.current?.duration || 0; //общая длительность трека
+  const duration = audioRef.current?.duration || 0; 
   const progressPercent = (currentTime / duration) * 100 || 0;
 
-  //громкость
+
   const handleVolumeChange = (e) => {
     const newVolume = parseFloat(e.target.value);
-    // Проверьте, что newVolume находится в диапазоне [0, 1]
+    
     const clampedVolume = Math.max(0, Math.min(1, newVolume));
 
     if (audioRef.current) {
@@ -31,14 +31,14 @@ function AudioPlayer({
     }
   };
 
-  const togglePlay = isPlaying ? handleStop : handleStart; //кнопка плей/пауза
+  const togglePlay = isPlaying ? handleStop : handleStart; 
 
-  //воспроизведение следущего трека
+  
   useEffect(() => {
     audioRef.current.load();
   }, [track]);
 
-  //воспроизведение трека сразу после нажатия на название/автора/альбома
+ 
   useEffect(() => {
     audioRef.current.addEventListener("loadedmetadata", () => {
       handleStart();
@@ -52,25 +52,25 @@ function AudioPlayer({
       }
     };
 
-    // Добавляем слушатель события timeupdate
+ 
     if (audioRef.current) {
       audioRef.current.addEventListener("timeupdate", updateCurrentTime);
     }
 
     return () => {
-      // Удаляем слушатель при размонтировании компонента
+      
       if (audioRef.current) {
         audioRef.current.removeEventListener("timeupdate", updateCurrentTime);
       }
     };
   }, [audioRef]);
 
-  //сброс прогресса проигрывания трека после его окончания
+ 
   useEffect(() => {
     if (audioRef.current) {
       setCurrentTime(audioRef.current.currentTime);
 
-      // Проверяем, завершено ли проигрывание
+      
       if (audioRef.current.currentTime === audioRef.current.duration) {
         setCurrentTime(0);
         setIsPlaying(false);
@@ -78,7 +78,7 @@ function AudioPlayer({
     }
   }, [audioRef.current, audioRef.current?.currentTime]);
 
-  //перемотка трека при нажатии на ProgressBarClick
+  
   const handleProgressBarClick = (e) => {
     const progressBar = e.currentTarget;
     const clickPosition = e.clientX - progressBar.getBoundingClientRect().left;
@@ -90,7 +90,7 @@ function AudioPlayer({
     }
   };
 
-  //повторение трека по кругу
+  
   const [isLooped, setIsLooped] = useState(false);
   const handleLoop = () => {
     audioRef.current.loop = true;

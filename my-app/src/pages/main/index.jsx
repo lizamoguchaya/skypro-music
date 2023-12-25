@@ -11,11 +11,11 @@ import { EmulationApp } from "../../components/Emulation/EmulationApp.jsx";
 import { getAllTracks } from "../../Api.js";
 
 export const Main = () => {
-  const [showAudioPlayer, setShowAudioPlayer] = useState(null); //показ плеера
-  const [loading, setLoading] = useState(true); //показ эмуляции загрузки(скелетон)
-  const [tracks, setTracks] = useState(true); //показ полученного треклиста из API
-  const [tracksError, setTracksError] = useState(true); //ошибка при получении треклиста из API
-  const [isPlaying, setIsPlaying] = useState(false); //воспроизведение трека
+  const [showAudioPlayer, setShowAudioPlayer] = useState(null); 
+  const [loading, setLoading] = useState(true); 
+  const [tracks, setTracks] = useState(true); 
+  const [tracksError, setTracksError] = useState(true); 
+  const [isPlaying, setIsPlaying] = useState(false); 
   const audioRef = useRef(null);
 
 
