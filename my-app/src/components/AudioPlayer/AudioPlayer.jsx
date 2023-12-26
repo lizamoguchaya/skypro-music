@@ -3,6 +3,8 @@ import PropTypes from "prop-types";
 import { useEffect, useState } from "react";
 import { convertSecToMinAndSec } from "../../helpers.js";
 
+
+
 function AudioPlayer({
   track,
   handleStop,
@@ -134,7 +136,7 @@ function AudioPlayer({
                 <S.PlayerBtnPlay>
                   <S.PlayerBtnPlaySvg alt="play" onClick={togglePlay}>
                     {isPlaying ? (
-                      <use xlinkHref="/icon/sprite.svg#icon-pause"></use>
+                      <use xlinkHref="/icon/sprite-2.svg#icon-pause"></use>
                     ) : (
                       <use xlinkHref="/icon/sprite.svg#icon-play"></use>
                     )}
