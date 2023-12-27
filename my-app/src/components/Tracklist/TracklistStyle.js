@@ -8,6 +8,7 @@ export const CenterblockContent = styled.div`
   -webkit-box-direction: normal;
   -ms-flex-direction: column;
   flex-direction: column;
+  
 `;
 
 export const ContentTitle = styled.div`

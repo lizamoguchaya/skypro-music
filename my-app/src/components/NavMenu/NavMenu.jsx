@@ -33,7 +33,12 @@ const NavMenu = () => {
               <S.MenuLink href="#">Главное</S.MenuLink>
             </S.MenuItem>
             <S.MenuItem>
-              <S.MenuLink href="#">Мой плейлист</S.MenuLink>
+            <S.NavLink
+                to="/favorites"
+               
+              >
+                Мой плейлист
+              </S.NavLink>
             </S.MenuItem>
             <S.MenuItem>
             <S.Button onClick={handleLogout}>Выйти</S.Button>
