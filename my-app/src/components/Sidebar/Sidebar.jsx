@@ -1,12 +1,19 @@
 import * as Styled from './Sidebar.js'
 import Playlists from '../Playlists/Playlists.jsx';
+import { useContext } from "react";
+import { UserContext } from "../../Authorization.js";
+import PropTypes from "prop-types";
 
-function Sidebar() {
+function Sidebar({ handleLogout }) {
+  const { userData } = useContext(UserContext);
+
   return (
     <Styled.MainSidebar>
       <Styled.SidebarPersonal>
-        <Styled.SidebarPersonalName>Sergey.Ivanov</Styled.SidebarPersonalName>
-        <Styled.SidebarIcon>
+        <Styled.SidebarPersonalName> 
+          {userData.username}
+          </Styled.SidebarPersonalName>
+          <Styled.SidebarIcon onClick={handleLogout}>
           <svg alt="logout">
             <use xlinkHref="/icon/sprite.svg#logout"></use>
           </svg>
@@ -19,3 +26,7 @@ function Sidebar() {
 }
 
 export default Sidebar;
+
+Sidebar.propTypes = {
+  handleLogout: PropTypes.func.isRequired,
+};
