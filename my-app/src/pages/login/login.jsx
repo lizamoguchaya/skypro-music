@@ -1,4 +1,4 @@
-import * as S from "../Pages.styles.js";
+import * as S from "../PageStyles.js";
 import { GlobalStyle } from "../../App.styles.js";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
