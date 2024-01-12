@@ -14,6 +14,7 @@ function App() {
   const handleLogout = () => {
     localStorage.removeItem("user");
     navigate("/login");
+    setUser(null)
   };
 
   return (
