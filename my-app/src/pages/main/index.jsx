@@ -9,9 +9,10 @@ import Sidebar from "../../components/Sidebar/Sidebar.jsx";
 import Tracklist from "../../components/Tracklist/Tracklist.jsx";
 import { EmulationApp } from "../../components/Emulation/EmulationApp.jsx";
 import { getAllTracks } from "../../Api.js";
-import { handleStart, handleStop, handleTrackPlay } from "../../components/AudioPlayer/AudioPlayer.jsx";
+import PropTypes from "prop-types";
+// import { handleStart, handleStop, handleTrackPlay } from "../../components/AudioPlayer/AudioPlayer.jsx";
 
-export const Main = () => {
+export const Main = ({ handleLogout}) => {
   const [showAudioPlayer, setShowAudioPlayer] = useState(null); 
   const [loading, setLoading] = useState(true); 
   const [tracks, setTracks] = useState(true); 
@@ -57,7 +58,7 @@ export const Main = () => {
       <GlobalStyle />
       <S.Container>
         <S.Main>
-          <NavMenu />
+          <NavMenu handleLogout={handleLogout}/>
           <div>
             <Search />
             <S.CenterblockH2>Треки</S.CenterblockH2>
@@ -68,7 +69,7 @@ export const Main = () => {
               tracksError={tracksError}
             />
           </div>
-          <Sidebar tracks={tracks} />
+          <Sidebar tracks={tracks} handleLogout={handleLogout} />
         </S.Main>
         {showAudioPlayer ? (
           <AudioPlayer
@@ -86,4 +87,11 @@ export const Main = () => {
       </S.Container>
     </S.Wrapper>
   );
+};
+
+Main.propTypes = {
+  user: PropTypes.shape({
+    username: PropTypes.string,
+  }),
+  handleLogout: PropTypes.func.isRequired,
 };
