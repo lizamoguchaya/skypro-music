@@ -5,17 +5,22 @@ import { BrowserRouter } from "react-router-dom";
 import App from "./App.jsx";
 import { IndexStyles } from "./index.styles.js";
 import { ShowEmulationApp } from "./components/Emulation/EmulationApp.jsx";
+import { Provider } from "react-redux";
+import { store } from "./store/store";
+
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <>
-    <IndexStyles />
-    <React.StrictMode>
+  <IndexStyles />
+  <React.StrictMode>
+    <Provider store={store}>
       <BrowserRouter>
         <App />
       </BrowserRouter>
-    </React.StrictMode>
-  </>
+    </Provider>
+  </React.StrictMode>
+</>
 );
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))

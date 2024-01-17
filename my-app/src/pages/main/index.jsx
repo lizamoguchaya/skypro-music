@@ -10,32 +10,15 @@ import Tracklist from "../../components/Tracklist/Tracklist.jsx";
 import { EmulationApp } from "../../components/Emulation/EmulationApp.jsx";
 import { getAllTracks } from "../../Api.js";
 import PropTypes from "prop-types";
+import { useSelector } from "react-redux";
 // import { handleStart, handleStop, handleTrackPlay } from "../../components/AudioPlayer/AudioPlayer.jsx";
 
-export const Main = ({ handleLogout}) => {
-  const [showAudioPlayer, setShowAudioPlayer] = useState(null); 
-  const [loading, setLoading] = useState(true); 
-  const [tracks, setTracks] = useState(true); 
-  const [tracksError, setTracksError] = useState(true); 
-  const [isPlaying, setIsPlaying] = useState(false); 
-  const audioRef = useRef(null);
+export const Main = ({ handleLogout }) => {
+  const [loading, setLoading] = useState(true); //показ эмуляции загрузки(скелетон)
+  const [tracks, setTracks] = useState(true); //показ полученного треклиста из API
+  const [tracksError, setTracksError] = useState(true); //ошибка при получении треклиста из API
 
-
-  const handleStart = () => {
-    console.log("handleStart");
-    audioRef.current.play();
-    setIsPlaying(true);
-  };
-
-  const handleStop = () => {
-    audioRef.current.pause();
-    setIsPlaying(false);
-  };
-
-  const handleTrackPlay = (track) => {
-    console.log("handleTrackPlay");
-    setShowAudioPlayer(track);
-  };
+  const currentTrack = useSelector((state) => state.player.currentTrack);
 
   useEffect(() => {
     getAllTracks()
@@ -52,37 +35,22 @@ export const Main = ({ handleLogout}) => {
   }, []);
 
   return loading ? (
-    <EmulationApp />
+    <EmulationApp handleLogout={handleLogout} />
   ) : (
     <S.Wrapper>
       <GlobalStyle />
       <S.Container>
         <S.Main>
-          <NavMenu handleLogout={handleLogout}/>
+          <NavMenu handleLogout={handleLogout} />
           <div>
             <Search />
             <S.CenterblockH2>Треки</S.CenterblockH2>
             <Filters />
-            <Tracklist
-              handleTrackPlay={handleTrackPlay}
-              tracks={tracks}
-              tracksError={tracksError}
-            />
+            <Tracklist tracks={tracks} tracksError={tracksError} />
           </div>
           <Sidebar tracks={tracks} handleLogout={handleLogout} />
         </S.Main>
-        {showAudioPlayer ? (
-          <AudioPlayer
-            track={showAudioPlayer}
-            handleTrackPlay={handleTrackPlay}
-            setShowBar={setShowAudioPlayer}
-            setIsPlaying={setIsPlaying}
-            handleStart={handleStart}
-            handleStop={handleStop}
-            isPlaying={isPlaying}
-            audioRef={audioRef}
-          />
-        ) : null}
+        {currentTrack ? <AudioPlayer track={currentTrack} /> : null}
         <footer></footer>
       </S.Container>
     </S.Wrapper>
@@ -94,4 +62,5 @@ Main.propTypes = {
     username: PropTypes.string,
   }),
   handleLogout: PropTypes.func.isRequired,
+  setCurrentTrack: PropTypes.func.isRequired,
 };

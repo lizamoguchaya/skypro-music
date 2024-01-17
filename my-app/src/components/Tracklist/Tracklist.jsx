@@ -1,8 +1,20 @@
 import * as Style from "./TracklistStyle.js";
 import { convertSecToMinAndSec } from "../../helpers.js";
 import PropTypes from "prop-types";
+import { useDispatch } from "react-redux";
+import { setCurrentTrack } from "../../store/actions/creators/todo.js";
+import { useSelector } from "react-redux";
 
-function Tracklist({ handleTrackPlay, tracks, getTracksError }) {
+function Tracklist({ tracks, getTracksError }) {
+  const dispatch = useDispatch();
+
+  const handleCurrentTrackId = (track) => {
+    dispatch(setCurrentTrack({ playlist: tracks, track: track }));
+  };
+
+  const { currentTrack } = useSelector((store) => store.player);
+  const { isPlaying } = useSelector((store) => store.player);
+
   return (
     <Style.CenterblockContent>
       <Style.ContentTitle>
@@ -24,24 +36,41 @@ function Tracklist({ handleTrackPlay, tracks, getTracksError }) {
             <Style.PlaylistTrack>
               <Style.TrackTitle>
                 <Style.TrackTitleImage>
-                  <Style.TrackTitleSvg alt="music">
-                  <use xlinkHref="/icon/sprite.svg#icon-note"></use>
-                    {track.logo}
-                  </Style.TrackTitleSvg>
+                  
+                  {currentTrack && currentTrack.id === track.id ? (
+                    <Style.BlinkingDot
+                      $isPlaying={isPlaying}
+                    ></Style.BlinkingDot>
+                  ) : (
+                    <Style.TrackTitleSvg alt="music">
+                      
+                      <use xlinkHref="/icon/sprite.svg#icon-note"></use>
+                      {track.logo}
+                      
+                    </Style.TrackTitleSvg>
+                  )}
                 </Style.TrackTitleImage>
                 <div>
-                  <Style.TrackTitleLink onClick={() => handleTrackPlay(track)}>
+                  <Style.TrackTitleLink
+                    onClick={() => {
+                      handleCurrentTrackId(track);
+                    }}
+                  >
                     {track.name} <Style.TrackTitleSpan></Style.TrackTitleSpan>
                   </Style.TrackTitleLink>
                 </div>
               </Style.TrackTitle>
               <Style.TrackAuthor>
-                <Style.TrackAuthorLink href={track.track_file}>
+                <Style.TrackAuthorLink
+                  onClick={() => handleCurrentTrackId(track)}
+                >
                   {track.author}
                 </Style.TrackAuthorLink>
               </Style.TrackAuthor>
               <Style.TrackAlbum>
-                <Style.TrackAlbumLink href={track.track_file}>
+                <Style.TrackAlbumLink
+                  onClick={() => handleCurrentTrackId(track)}
+                >
                   {track.album}
                 </Style.TrackAlbumLink>
               </Style.TrackAlbum>
@@ -62,7 +91,6 @@ function Tracklist({ handleTrackPlay, tracks, getTracksError }) {
 }
 
 Tracklist.propTypes = {
-  handleTrackPlay: PropTypes.func.isRequired,
   tracks: PropTypes.array.isRequired,
   getTracksError: PropTypes.any,
 };
