@@ -32,7 +32,7 @@ export const AppRoutes = ({ user, handleLogout }) => {
 
 AppRoutes.propTypes = {
   user: PropTypes.oneOfType([PropTypes.string, PropTypes.oneOf([null])]),
-  setUser: PropTypes.func.isRequired,
+  // setUser: PropTypes.func.isRequired,
 };
 
 export default AppRoutes;

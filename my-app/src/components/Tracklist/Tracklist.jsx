@@ -4,6 +4,7 @@ import PropTypes from "prop-types";
 import { useDispatch } from "react-redux";
 import { setCurrentTrack } from "../../store/actions/creators/todo.js";
 import { useSelector } from "react-redux";
+import { useAddTrackMutation, useDeleteTrackMutation } from "../../store/api/music.js";
 
 function Tracklist({ tracks, getTracksError }) {
   const dispatch = useDispatch();
@@ -14,6 +15,9 @@ function Tracklist({ tracks, getTracksError }) {
 
   const { currentTrack } = useSelector((store) => store.player);
   const { isPlaying } = useSelector((store) => store.player);
+
+  const [addTracks] = useAddTrackMutation ();
+  const [deleteTracks] = useDeleteTrackMutation();
 
   return (
     <Style.CenterblockContent>

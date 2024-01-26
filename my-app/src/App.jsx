@@ -29,9 +29,9 @@ function App() {
           <S.Container>
             <AppRoutes
               user={user}
-              setUser={setUser}
+              // setUser={setUser}
               handleLogout={handleLogout}
-              setCurrentTrack={setCurrentTrack}
+              // setCurrentTrack={setCurrentTrack}
             />
           </S.Container>
         </S.Wrapper>

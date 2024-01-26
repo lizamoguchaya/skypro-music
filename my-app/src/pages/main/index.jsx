@@ -11,28 +11,29 @@ import { EmulationApp } from "../../components/Emulation/EmulationApp.jsx";
 import { getAllTracks } from "../../Api.js";
 import PropTypes from "prop-types";
 import { useSelector } from "react-redux";
+import { useGetAllTracksQuery } from "../../store/api/music.js";
 // import { handleStart, handleStop, handleTrackPlay } from "../../components/AudioPlayer/AudioPlayer.jsx";
 
 export const Main = ({ handleLogout }) => {
-  const [loading, setLoading] = useState(true); //показ эмуляции загрузки(скелетон)
-  const [tracks, setTracks] = useState(true); //показ полученного треклиста из API
+  // const [loading, setLoading] = useState(true); //показ эмуляции загрузки(скелетон)
+  // const [tracks, setTracks] = useState(true); //показ полученного треклиста из API
   const [tracksError, setTracksError] = useState(true); //ошибка при получении треклиста из API
-
+  const {data: tracks, isLoading: loading} = useGetAllTracksQuery();
   const currentTrack = useSelector((state) => state.player.currentTrack);
 
-  useEffect(() => {
-    getAllTracks()
-      .then((tracks) => {
-        setTracks(tracks);
-        setLoading(false);
-      })
-      .catch((error) => {
-        setTracksError(
-          `Не удалось загрузить плейлист, попробуйте позже: ${error.message}`
-        );
-      })
-      .finally(() => setLoading(false));
-  }, []);
+  // useEffect(() => {
+  //   getAllTracks()
+  //     .then((tracks) => {
+  //       setTracks(tracks);
+  //       setLoading(false);
+  //     })
+  //     .catch((error) => {
+  //       setTracksError(
+  //         `Не удалось загрузить плейлист, попробуйте позже: ${error.message}`
+  //       );
+  //     })
+  //     .finally(() => setLoading(false));
+  // }, []);
 
   return loading ? (
     <EmulationApp handleLogout={handleLogout} />
