@@ -1,10 +1,10 @@
 import { Link, useNavigate } from "react-router-dom";
-import * as S from "../register/register.styles";
+import * as S from "./register.styles"
 import { useContext, useEffect, useRef, useState } from "react";
-import { loginUser } from "../../Api";
+import { registerUser } from "../../Api.js";
 import { UserContext } from "../../Authorization";
 
-export default function Login() {
+export default function Register() {
   const navigate = useNavigate();
 
   const { changingUserData } = useContext(UserContext);
@@ -12,11 +12,12 @@ export default function Login() {
   const [error, setError] = useState(null);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [repeatPassword, setRepeatPassword] = useState("");
   const [isRegistering, setIsRegistering] = useState(false);
 
   const authBtnRef = useRef(null);
 
-  const handleLogin = async () => {
+  const handleRegister = async () => {
     if (!email) {
       setError("Укажите почту");
       return;
@@ -27,15 +28,24 @@ export default function Login() {
       return;
     }
 
+    if (!repeatPassword) {
+      setError("Укажите повторный пароль");
+      return;
+    }
+
+    if (password !== repeatPassword) {
+      setError("Пароли не совпадают");
+      return;
+    }
+
     try {
       setIsRegistering(true);
-      const response = await loginUser({ email, password });
-
+      const response = await registerUser({ email, password });
       if (response.ok) {
         const user = await response.json();
         localStorage.setItem("user", JSON.stringify(user));
         changingUserData(user);
-        navigate("/");
+        navigate("/login");
       } else {
         if (response.status === 400) {
           const errorData = await response.json();
@@ -45,15 +55,15 @@ export default function Login() {
             errorMessage += `\n${field}: ${errorData[field].join(", ")}`;
           }
           setError(errorMessage);
-        } else if (response.status === 401) {
-          setError("Пользователь с таким email или паролем не найден");
         } else if (response.status === 500) {
           setError("Внутренняя ошибка сервера");
         }
       }
     } catch (error) {
-      console.error("Ошибка при входе:", error.message);
-      setError("Произошла ошибка при входе. Пожалуйста, попробуйте еще раз.");
+      console.error("Ошибка при регистрации:", error.message);
+      setError(
+        "Произошла ошибка при регистрации. Пожалуйста, попробуйте еще раз."
+      );
     } finally {
       setIsRegistering(false);
     }
@@ -61,7 +71,7 @@ export default function Login() {
 
   useEffect(() => {
     setError(null);
-  }, [email, password]);
+  }, [email, password, repeatPassword]);
 
   return (
     <S.PageContainer>
@@ -87,21 +97,23 @@ export default function Login() {
               value={password}
               onChange={(event) => setPassword(event.target.value)}
             />
+            <S.ModalInput
+              type="password"
+              name="repeat-password"
+              placeholder="Повторите пароль"
+              value={repeatPassword}
+              onChange={(event) => setRepeatPassword(event.target.value)}
+            />
           </S.Inputs>
-
           {error && <S.Error>{error}</S.Error>}
           <S.Buttons>
             <S.PrimaryButton
-              onClick={handleLogin}
+              onClick={handleRegister}
               ref={authBtnRef}
               disabled={isRegistering}
             >
-              {isRegistering ? "Загрузка..." : "Войти"}
+              {isRegistering ? "Регистрация..." : "Зарегистрироваться"}
             </S.PrimaryButton>
-
-            <S.SecondaryButton as={Link} to="/register">
-              Зарегистрироваться
-            </S.SecondaryButton>
           </S.Buttons>
         </>
       </S.ModalForm>
