@@ -18,11 +18,11 @@ import {
 
  function EmulationApp() {
   return (
-    <S.Wrapper>
+    <>
       <GlobalStyle />
       <S.Container>
         <S.Main>
-          <NavMenu />
+          {/* <NavMenu /> */}
           <div>
             <Search />
             <S.CenterblockH2>Треки</S.CenterblockH2>
@@ -34,7 +34,7 @@ import {
         <EmulationPlayer />
         <footer></footer>
       </S.Container>
-    </S.Wrapper>
+    </>
   );
 }
 

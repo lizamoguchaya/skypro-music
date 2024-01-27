@@ -19,6 +19,22 @@ function Tracklist({ tracks, getTracksError }) {
   const [addTracks] = useAddTrackMutation ();
   const [deleteTracks] = useDeleteTrackMutation();
 
+  // const [isLike, setIsLike] = useState(true);
+
+  // const handleAddTrack = async (e) => {
+  //   e.stopPropagation();
+  //   addTrack({ id: props.track.id });
+  //   setIsLike(true);
+  // }
+
+  // const handleDeleteTrack = async (e) => {
+  //   e.stopPropagation();
+  //   deleteTrack({ id: props.track.id });
+  //   setIsLike(false);
+  // }
+
+  // через тернарный оператор ставим лайки
+
   return (
     <Style.CenterblockContent>
       <Style.ContentTitle>

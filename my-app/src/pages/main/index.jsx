@@ -38,23 +38,23 @@ export const Main = ({ handleLogout }) => {
   return loading ? (
     <EmulationApp handleLogout={handleLogout} />
   ) : (
-    <S.Wrapper>
+    <>
       <GlobalStyle />
       <S.Container>
         <S.Main>
-          <NavMenu handleLogout={handleLogout} />
+          {/* <NavMenu handleLogout={handleLogout} /> */}
           <div>
             <Search />
             <S.CenterblockH2>Треки</S.CenterblockH2>
             <Filters />
             <Tracklist tracks={tracks} tracksError={tracksError} />
           </div>
-          <Sidebar tracks={tracks} handleLogout={handleLogout} />
+          {/* <Sidebar tracks={tracks} handleLogout={handleLogout} /> */}
         </S.Main>
-        {currentTrack ? <AudioPlayer track={currentTrack} /> : null}
+        {/* {currentTrack ? <AudioPlayer track={currentTrack} /> : null} */}
         <footer></footer>
       </S.Container>
-    </S.Wrapper>
+    </>
   );
 };
 
