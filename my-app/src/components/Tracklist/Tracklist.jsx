@@ -5,8 +5,9 @@ import { useDispatch } from "react-redux";
 import { setCurrentTrack } from "../../store/actions/creators/todo.js";
 import { useSelector } from "react-redux";
 import { useAddTrackMutation, useDeleteTrackMutation } from "../../store/api/music.js";
+import { useEffect, useState } from 'react'
 
-function Tracklist({ tracks, getTracksError }) {
+function Tracklist({ tracks, getTracksError, props }) {
   const dispatch = useDispatch();
 
   const handleCurrentTrackId = (track) => {
@@ -19,19 +20,20 @@ function Tracklist({ tracks, getTracksError }) {
   const [addTracks] = useAddTrackMutation ();
   const [deleteTracks] = useDeleteTrackMutation();
 
-  // const [isLike, setIsLike] = useState(true);
+  const [isLike, setIsLike] = useState(true);
 
-  // const handleAddTrack = async (e) => {
-  //   e.stopPropagation();
-  //   addTrack({ id: props.track.id });
-  //   setIsLike(true);
-  // }
+  const handleAddTrack = async (e) => {
+    e.stopPropagation();
+    addTracks({ id: props.track.id });
+    setIsLike(true);
+  }
 
-  // const handleDeleteTrack = async (e) => {
-  //   e.stopPropagation();
-  //   deleteTrack({ id: props.track.id });
-  //   setIsLike(false);
-  // }
+  const handleDeleteTrack = async (e) => {
+    e.stopPropagation();
+    deleteTracks({ id: props.track.id });
+    setIsLike(false);
+  }
+  const toggleLike = isLike ? handleDeleteTrack : handleAddTrack;
 
   // через тернарный оператор ставим лайки
 
@@ -95,8 +97,10 @@ function Tracklist({ tracks, getTracksError }) {
                 </Style.TrackAlbumLink>
               </Style.TrackAlbum>
               <div>
-                <Style.TrackTimeSvg alt="time">
-                  <use xlinkHref="/icon/sprite.svg#icon-like"></use>
+                <Style.TrackTimeSvg 
+                 onClick={toggleLike}
+                alt="time">
+                  {isLike ? (<use xlinkHref="img/icon/sprite-2.svg#icon-dislike" />) : (<use xlinkHref="img/icon/sprite-2.svg#icon-like" />)}
                 </Style.TrackTimeSvg>
                 <Style.TrackTimeText>
                   {convertSecToMinAndSec(track.duration_in_seconds)}
