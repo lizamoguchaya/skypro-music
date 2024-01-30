@@ -17,10 +17,12 @@ function Tracklist({ tracks, getTracksError, props }) {
   const { currentTrack } = useSelector((store) => store.player);
   const { isPlaying } = useSelector((store) => store.player);
 
-  const [addTracks] = useAddTrackMutation ();
-  const [deleteTracks] = useDeleteTrackMutation();
+  const [addTracks, {error}] = useAddTrackMutation ();
+  const [deleteTracks,  {error: delError}] = useDeleteTrackMutation();
 
   const [isLike, setIsLike] = useState(true);
+
+ 
 
   const handleAddTrack = async (e) => {
     e.stopPropagation();
@@ -34,6 +36,14 @@ function Tracklist({ tracks, getTracksError, props }) {
     setIsLike(false);
   }
   const toggleLike = isLike ? handleDeleteTrack : handleAddTrack;
+
+  // useEffect(() => {
+  //   if (props.track.stared_user) {
+  //     const findUser = props.track.stared_user.find((t) => t.email == user);
+  //     const liked = findUser == null ? false : true;
+  //     setIsLike(liked);
+  //   }
+  // }, []);
 
   // через тернарный оператор ставим лайки
 
@@ -100,7 +110,7 @@ function Tracklist({ tracks, getTracksError, props }) {
                 <Style.TrackTimeSvg 
                  onClick={toggleLike}
                 alt="time">
-                  {isLike ? (<use xlinkHref="img/icon/sprite-2.svg#icon-dislike" />) : (<use xlinkHref="img/icon/sprite-2.svg#icon-like" />)}
+                  {isLike ? (<use xlinkHref="img/icon/sprite.svg#icon-dislike" />) : (<use xlinkHref="img/icon/sprite.svg#icon-like" />)}
                 </Style.TrackTimeSvg>
                 <Style.TrackTimeText>
                   {convertSecToMinAndSec(track.duration_in_seconds)}

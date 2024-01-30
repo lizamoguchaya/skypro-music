@@ -4,7 +4,7 @@ import { useContext } from "react";
 import { UserContext } from "../../Authorization.js";
 import PropTypes from "prop-types";
 
-function Sidebar({ handleLogout }) {
+export function Sidebar({ handleLogout }) {
   const { userData } = useContext(UserContext);
 
   return (

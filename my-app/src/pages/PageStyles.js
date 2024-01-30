@@ -28,3 +28,19 @@ export const Text = styled.div`
   color: #fff;
   text-transform: uppercase;
 `;
+
+export const ContainerWrap = styled.div`
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  align-items: stretch;
+  max-width: 100%;
+  margin-bottom: 20px;
+  margin-left: auto;
+  margin-right: auto;
+`;
+
+export const ContainerSidebar = styled.div`
+  display: flex;
+  flex-direction: column;
+`;

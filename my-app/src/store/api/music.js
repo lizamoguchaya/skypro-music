@@ -11,7 +11,7 @@ export const musicApi = createApi ({
             query: () => ({
                 url:  '/track/favorite/all/',
                 headers: {
-                Authorization: ''
+                Authorization: `Bearer ${JSON.parse(localStorage.access)}`
                 }
             
             })
@@ -20,7 +20,7 @@ export const musicApi = createApi ({
          query:  (id) => ({
             url: `/track/${id}/favorite/`,
             headers: {
-                Authorization: '//токен'
+                Authorization: `Bearer ${JSON.parse(localStorage.access)}`
                 
             },
             method: 'POST'
@@ -31,7 +31,7 @@ export const musicApi = createApi ({
             query:  (id) => ({
                url: `/track/${id}/favorite/`,
                headers: {
-                   Authorization: '//токен'
+                   Authorization: `Bearer ${JSON.parse(localStorage.access)}`
                    
                },
                method: 'DELETE'

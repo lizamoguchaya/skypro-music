@@ -38,3 +38,30 @@ export async function registerUser({ email, password }) {
       },
     });
   }
+
+  export function getTokenUser({ email, password }) {
+    return fetch("https://skypro-music-api.skyeng.tech/user/token/", {
+      method: "POST",
+      body: JSON.stringify({
+        email: email,
+        password: password,
+      }),
+      headers: {
+        "content-type": "application/json",
+      },
+    }).then((response) => response.json());
+  }
+
+  export function refreshTokenUser(token) {
+    console.log("Отправка запроса на обновление токена...");
+  
+    return fetch("https://skypro-music-api.skyeng.tech/user/token/refresh/", {
+      method: "POST",
+      body: JSON.stringify({
+        refresh: token,
+      }),
+      headers: {
+        "content-type": "application/json",
+      },
+    }).then((response) => response.json());
+  }
