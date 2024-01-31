@@ -3,11 +3,9 @@ import { Outlet } from "react-router-dom"
 import * as S from "../../App.styles.js";
 import AudioPlayer from "../../components/AudioPlayer/AudioPlayer.jsx";
 import { useSelector } from "react-redux";
-// import Filters from "../../components/Filters/Filters.jsx";
 import NavMenu from "../../components/NavMenu/NavMenu.jsx";
-// import Search from "../../components/Search/Search.jsx";
 import Sidebar from "../../components/Sidebar/Sidebar.jsx";
-// import Tracklist from "../../components/Tracklist/Tracklist.jsx";
+
 
 
 
@@ -24,12 +22,7 @@ return (
         <S.Main handleLogout={handleLogout}>
           <NavMenu  />
 
-          {/* <div>
-            <Search />
-            <S.CenterblockH2>Треки</S.CenterblockH2>
-            <Filters />
-            <Tracklist tracks={tracks} tracksError={tracksError} />
-          </div> */}
+          
           <Outlet currentTrack={currentTrack}/>
           {currentTrack ? <AudioPlayer track={currentTrack} /> : null}
           <Sidebar tracks={tracks} handleLogout={handleLogout} />

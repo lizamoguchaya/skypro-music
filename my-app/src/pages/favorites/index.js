@@ -12,8 +12,10 @@ import { EmulationTracklist } from "../../components/Emulation/EmulationLoading.
 import { useGetFavouriteTracksQuery } from "../../store/api/music.js";
 
 export const Favorites = ({ handleLogout }) => {
-  const token = JSON.parse(localStorage.access);
-  const refreshToken = JSON.parse(localStorage.refresh);
+  debugger;
+  console.log("рендерим фейворитс"+localStorage.access);
+  const token = localStorage.access;
+  const refreshToken = localStorage.refresh;
   const { data, isLoading, error, refetch } = useGetFavouriteTracksQuery({ token });
 
   useEffect(() => {

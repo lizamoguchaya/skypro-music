@@ -20,6 +20,15 @@ export const Main = ({ handleLogout }) => {
   const [tracksError, setTracksError] = useState(true); //ошибка при получении треклиста из API
   const {data: tracks, isLoading: loading} = useGetAllTracksQuery();
   const currentTrack = useSelector((state) => state.player.currentTrack);
+  const myUser = JSON.parse(localStorage.getItem("user"));
+  console.log(myUser);
+  const mappedTracks = tracks?.map((track) => {
+    const isLike = track.stared_user?.filter((user)=> user.id === myUser.id).length > 0 ? true : false;
+    return {
+      ...track,
+      isLike
+    };
+  }); 
 
   // useEffect(() => {
   //   getAllTracks()
@@ -47,7 +56,7 @@ export const Main = ({ handleLogout }) => {
             <Search />
             <S.CenterblockH2>Треки</S.CenterblockH2>
             <Filters />
-            <Tracklist tracks={tracks} tracksError={tracksError} />
+            <Tracklist tracks={mappedTracks} tracksError={tracksError} />
           </div>
           {/* <Sidebar tracks={tracks} handleLogout={handleLogout} /> */}
         </S.Main>

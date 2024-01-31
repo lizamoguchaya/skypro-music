@@ -5,7 +5,8 @@ import { useDispatch } from "react-redux";
 import { setCurrentTrack } from "../../store/actions/creators/todo.js";
 import { useSelector } from "react-redux";
 import { useAddTrackMutation, useDeleteTrackMutation } from "../../store/api/music.js";
-import { useEffect, useState } from 'react'
+import { useEffect, useReducer, useState } from 'react'
+import { refreshTokenUser } from "../../Api.js";
 
 function Tracklist({ tracks, getTracksError, props }) {
   const dispatch = useDispatch();
@@ -16,27 +17,44 @@ function Tracklist({ tracks, getTracksError, props }) {
 
   const { currentTrack } = useSelector((store) => store.player);
   const { isPlaying } = useSelector((store) => store.player);
+  const [addTracks, {error: addError, refetch: addRefetch}] = useAddTrackMutation ();
+  const [deleteTracks,  {error: delError, refetch: deleteRefetch}] = useDeleteTrackMutation();
+  const refreshToken = localStorage.getItem("refresh");
 
-  const [addTracks, {error}] = useAddTrackMutation ();
-  const [deleteTracks,  {error: delError}] = useDeleteTrackMutation();
+  useEffect(() => {
+    console.log(addError);
+    console.log(delError);
+    if (addError && addError.status === 401 || delError && delError.status === 401) {
+      refreshTokenUser(refreshToken)
+        .then((res) => {
+          console.log("Обновленный токен:", res);
+          localStorage.setItem("access", res.access);
+        })
+        .then(() => {
+         if(addError) addRefetch();
+         if(delError) deleteRefetch();
+        })
+        .catch((refreshError) => {
+          console.error("Ошибка при обновлении токена:", refreshError.message);
+        });
+    }
+  }, [addError, delError]);
 
-  const [isLike, setIsLike] = useState(true);
+  const [ignored, forceUpdate] = useReducer(x => x + 1, 0);
 
+  const handleAddTrack = async (e, track) => {
+    e.stopPropagation();
+    addTracks( track.id );
+    track.isLike = !track.isLike;
+    forceUpdate();
+  }
+  const handleDeleteTrack = async (e, track) => {
+    e.stopPropagation();
+    deleteTracks(track.id );
+    track.isLike = !track.isLike;
+    forceUpdate();
+  }
  
-
-  const handleAddTrack = async (e) => {
-    e.stopPropagation();
-    addTracks({ id: props.track.id });
-    setIsLike(true);
-  }
-
-  const handleDeleteTrack = async (e) => {
-    e.stopPropagation();
-    deleteTracks({ id: props.track.id });
-    setIsLike(false);
-  }
-  const toggleLike = isLike ? handleDeleteTrack : handleAddTrack;
-
   // useEffect(() => {
   //   if (props.track.stared_user) {
   //     const findUser = props.track.stared_user.find((t) => t.email == user);
@@ -108,9 +126,11 @@ function Tracklist({ tracks, getTracksError, props }) {
               </Style.TrackAlbum>
               <div>
                 <Style.TrackTimeSvg 
-                 onClick={toggleLike}
-                alt="time">
-                  {isLike ? (<use xlinkHref="img/icon/sprite.svg#icon-dislike" />) : (<use xlinkHref="img/icon/sprite.svg#icon-like" />)}
+                 onClick={(event) => {track.isLike ? handleDeleteTrack(event, track) : handleAddTrack(event, track)}}
+                 alt="time">
+                   
+                  
+                   { track.isLike ? (<use xlinkHref="/icon/sprite.svg#icon-dislike" />) : (<use xlinkHref="/icon/sprite.svg#icon-like" />)}
                 </Style.TrackTimeSvg>
                 <Style.TrackTimeText>
                   {convertSecToMinAndSec(track.duration_in_seconds)}

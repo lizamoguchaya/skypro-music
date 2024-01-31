@@ -39,7 +39,7 @@ export async function registerUser({ email, password }) {
     });
   }
 
-  export function getTokenUser({ email, password }) {
+  export async function getTokenUser({ email, password }) {
     return fetch("https://skypro-music-api.skyeng.tech/user/token/", {
       method: "POST",
       body: JSON.stringify({
