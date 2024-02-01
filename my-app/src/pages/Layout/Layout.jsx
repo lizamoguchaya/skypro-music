@@ -5,6 +5,7 @@ import AudioPlayer from "../../components/AudioPlayer/AudioPlayer.jsx";
 import { useSelector } from "react-redux";
 import NavMenu from "../../components/NavMenu/NavMenu.jsx";
 import Sidebar from "../../components/Sidebar/Sidebar.jsx";
+import Search from "../../components/Search/Search";
 
 
 
@@ -19,9 +20,10 @@ return (
       <GlobalStyle />
       <S.Container>
        
+       
         <S.Main handleLogout={handleLogout}>
           <NavMenu  />
-
+          
           
           <Outlet currentTrack={currentTrack}/>
           {currentTrack ? <AudioPlayer track={currentTrack} /> : null}

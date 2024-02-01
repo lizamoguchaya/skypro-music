@@ -5,7 +5,7 @@ import * as S from "../../App.styles.js";
 import { Sidebar } from "../../components/Sidebar/Sidebar.jsx";
 import Tracklist from "../../components/Tracklist/Tracklist.jsx";
 
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { refreshTokenUser } from "../../Api.js";
 import * as St from "../PageStyles.js";
 import { EmulationTracklist } from "../../components/Emulation/EmulationLoading.jsx";
@@ -17,6 +17,7 @@ export const Favorites = ({ handleLogout }) => {
   const token = localStorage.access;
   const refreshToken = localStorage.refresh;
   const { data, isLoading, error, refetch } = useGetFavouriteTracksQuery({ token });
+ 
 
   useEffect(() => {
     if (error && error.status === 401) {
@@ -39,13 +40,15 @@ export const Favorites = ({ handleLogout }) => {
   return (
     <>
       <S.Main>
+        
         <NavMenu handleLogout={handleLogout} />
         <div style={{ minWidth: "1070px", justifyContent: "space-between" }}>
           <Search />
           <S.CenterblockH2>Мои треки</S.CenterblockH2>
           {error ? (
             <p>Не удалось загрузить плейлист, попробуйте позже</p>
-          ) : isLoading ? (
+          ) 
+          : isLoading ? (
             <EmulationTracklist />
           ) : isEmptyList ? (
             `Любимые треки отсутствуют. Вы можете их добавить, нажав на кнопку "♥" рядом с понравившимся треком`
