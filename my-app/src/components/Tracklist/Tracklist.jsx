@@ -8,7 +8,7 @@ import { useAddTrackMutation, useDeleteTrackMutation } from "../../store/api/mus
 import { useEffect, useReducer, useState } from 'react'
 import { refreshTokenUser } from "../../Api.js";
 
-function Tracklist({ tracks, getTracksError, props }) {
+function Tracklist({ tracks = [], getTracksError, isFavourite = false }) {
   const dispatch = useDispatch();
 
   const handleCurrentTrackId = (track) => {
@@ -81,7 +81,7 @@ function Tracklist({ tracks, getTracksError, props }) {
       <p>{getTracksError}</p>
 
       <Style.ContentPlaylist>
-        {tracks.map((track) => (
+        {tracks.length > 0 &&  tracks.map((track) => (
           <Style.PlaylistItem key={track.id}>
             <Style.PlaylistTrack>
               <Style.TrackTitle>
@@ -130,7 +130,7 @@ function Tracklist({ tracks, getTracksError, props }) {
                  alt="time">
                    
                   
-                   { track.isLike ? (<use xlinkHref="/icon/sprite.svg#icon-dislike" />) : (<use xlinkHref="/icon/sprite.svg#icon-like" />)}
+                   {isFavourite || track.isLike ? (<use xlinkHref="/icon/sprite.svg#icon-liked" />) : (<use xlinkHref="/icon/sprite.svg#icon-like" />)}
                 </Style.TrackTimeSvg>
                 <Style.TrackTimeText>
                   {convertSecToMinAndSec(track.duration_in_seconds)}

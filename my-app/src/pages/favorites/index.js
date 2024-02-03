@@ -11,11 +11,12 @@ import * as St from "../PageStyles.js";
 import { EmulationTracklist } from "../../components/Emulation/EmulationLoading.jsx";
 import { useGetFavouriteTracksQuery } from "../../store/api/music.js";
 
+
 export const Favorites = ({ handleLogout }) => {
-  debugger;
+  // debugger;
   console.log("рендерим фейворитс"+localStorage.access);
-  const token = localStorage.access;
-  const refreshToken = localStorage.refresh;
+  const token = localStorage.getItem('access')
+  const refreshToken = localStorage.getItem("refresh");
   const { data, isLoading, error, refetch } = useGetFavouriteTracksQuery({ token });
  
 
@@ -36,12 +37,13 @@ export const Favorites = ({ handleLogout }) => {
   }, [error]);
 
   const isEmptyList = !isLoading && !data?.length;
+  console.log(data);
 
   return (
     <>
       <S.Main>
-        
-        <NavMenu handleLogout={handleLogout} />
+{/*         
+        <NavMenu handleLogout={handleLogout} /> */}
         <div style={{ minWidth: "1070px", justifyContent: "space-between" }}>
           <Search />
           <S.CenterblockH2>Мои треки</S.CenterblockH2>
@@ -53,16 +55,19 @@ export const Favorites = ({ handleLogout }) => {
           ) : isEmptyList ? (
             `Любимые треки отсутствуют. Вы можете их добавить, нажав на кнопку "♥" рядом с понравившимся треком`
           ) : (
-            <Tracklist tracks={data} refetch={refetch} />
+            <Tracklist tracks={data}  isFavourite={true} />
+            
           )}
         </div>
-        <St.ContainerSidebar>
+        {/* <St.ContainerSidebar>
           <Sidebar handleLogout={handleLogout} />
-        </St.ContainerSidebar>
+        </St.ContainerSidebar> */}
       </S.Main>
     </>
   );
 };
+
+
 
 Favorites.propTypes = {
   handleLogout: PropTypes.func.isRequired,
