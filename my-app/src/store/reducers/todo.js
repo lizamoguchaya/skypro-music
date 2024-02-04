@@ -88,10 +88,14 @@ import {
       }
   
       case MIX_TRACK: {
-        return {
-          ...state,
-          isMix: !state.isMix,
-          mixTracks: [...state.tracks].sort(() => 0.5 - Math.random()),
+        const isMixValue = action.payload.isMix;
+      console.log(isMixValue);
+      return {
+        ...state,
+
+        isMix: isMixValue ? isMixValue : !state.isMix,
+        // tracks: [...state.tracks].sort(() => 0.5 - Math.random()),
+        mixTracks: [...state.tracks].sort(() => 0.5 - Math.random()),
         };
       }
   

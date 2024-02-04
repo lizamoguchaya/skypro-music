@@ -14,8 +14,18 @@ export const musicApi = createApi ({
                 Authorization: `Bearer ${localStorage.getItem("access")}`
                 }
             
-            })
-        }),
+            }),
+            transformResponse: (response) => {
+                return response.map((track) => ({ ...track, isFavorite: true }));
+              },
+              providesTags: (result) =>
+                result
+                  ? [{ type: "isFavorite", id: "LIST" }]
+                  : [{ type: "isFavorite", id: "LIST" }],
+            }),
+            
+        
+        
         addTrack: builder.mutation ({
          query:  (id) => ({
             url: `/track/${id}/favorite/`,
@@ -39,8 +49,9 @@ export const musicApi = createApi ({
            })
            })
 
-
+      
     })
+    
 
 }) 
 
