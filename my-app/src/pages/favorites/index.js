@@ -55,7 +55,7 @@ export const Favorites = ({ handleLogout }) => {
           ) : isEmptyList ? (
             `Любимые треки отсутствуют. Вы можете их добавить, нажав на кнопку "♥" рядом с понравившимся треком`
           ) : (
-            <Tracklist tracks={data}  isFavourite={true} />
+            <Tracklist tracks={data}  isFavourite={true} refetch={refetch}/>
             
           )}
         </div>
