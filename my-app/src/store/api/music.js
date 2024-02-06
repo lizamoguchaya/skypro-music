@@ -36,13 +36,7 @@ export const musicApi = createApi ({
             method: 'POST'
 
         }),
-        transformResponse: (response) => {
-            return response.map((track) => ({ ...track, isFavorite: true }));
-          },
-          providesTags: (result) =>
-            result
-              ? [{ type: "isFavorite", id: "LIST" }]
-              : [{ type: "isFavorite", id: "LIST" }],
+        invalidatesTags: [{ type: "isFavorite", id: "LIST" }],
         }),
        
         deleteTrack: builder.mutation ({
