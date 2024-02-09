@@ -11,7 +11,7 @@ import Search from "../../components/Search/Search";
 
 
 
-const PageLayout = ( handleLogout, tracks) => {
+const PageLayout = ({ handleLogout, tracks}) => {
     const currentTrack = useSelector((state) => state.player.currentTrack);
 
 return (
@@ -22,7 +22,7 @@ return (
        
        
         <S.Main handleLogout={handleLogout}>
-          <NavMenu  />
+          <NavMenu handleLogout={handleLogout} />
           
           
           <Outlet currentTrack={currentTrack}/>

@@ -5,6 +5,7 @@ import {
     MIX_TRACK,
     PLAY,
     PAUSE,
+    REMOVE_CURRENT_TRACK 
   } from "../types/todo";
   
   export const setCurrentTrack = ({ playlist, track }) => ({
@@ -38,4 +39,6 @@ import {
     },
   });
 
-  
+  export const removeCurrentTrack = () => ({
+    type: REMOVE_CURRENT_TRACK
+  })

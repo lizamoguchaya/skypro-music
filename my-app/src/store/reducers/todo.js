@@ -5,6 +5,7 @@ import {
     MIX_TRACK,
     PLAY,
     PAUSE,
+    REMOVE_CURRENT_TRACK 
   } from "../actions/types/todo";
   
   // 1.
@@ -32,6 +33,15 @@ import {
           tracks: playlist,
           isPlaying: true,
         };
+      }
+
+      case REMOVE_CURRENT_TRACK: {
+         return{
+          ...state,
+          currentTrack: null,
+          tracks: [],
+          isPlaying: false,
+         };
       }
   
       case PLAY: {

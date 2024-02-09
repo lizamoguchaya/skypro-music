@@ -45,12 +45,14 @@ function Tracklist({ tracks = [], getTracksError, isFavourite = false }) {
   const handleAddTrack = async (e, track) => {
     e.stopPropagation();
     addTracks( track.id );
+    console.log(track);
     track.isLike = !track.isLike;
     forceUpdate();
   }
   const handleDeleteTrack = async (e, track) => {
     e.stopPropagation();
     deleteTracks(track.id );
+    console.log(track);
     track.isLike = !track.isLike;
     forceUpdate();
   }

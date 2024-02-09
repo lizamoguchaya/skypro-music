@@ -10,6 +10,7 @@ import { refreshTokenUser } from "../../Api.js";
 import * as St from "../PageStyles.js";
 import { EmulationTracklist } from "../../components/Emulation/EmulationLoading.jsx";
 import { useGetFavouriteTracksQuery } from "../../store/api/music.js";
+import { useNavigate } from "react-router-dom";
 
 
 export const Favorites = ({ handleLogout }) => {
@@ -18,17 +19,20 @@ export const Favorites = ({ handleLogout }) => {
   const token = localStorage.getItem('access')
   const refreshToken = localStorage.getItem("refresh");
   const { data, isLoading, error, refetch } = useGetFavouriteTracksQuery({ token });
- 
+  let attempts = 3
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (error && error.status === 401) {
       refreshTokenUser(refreshToken)
         .then((res) => {
           console.log("Обновленный токен:", res);
-          localStorage.setItem("access", JSON.stringify(res.access));
+          localStorage.setItem("access", res.access);
         })
         .then(() => {
-          refetch();
+          
+            refetch();
+         
         })
         .catch((refreshError) => {
           console.error("Ошибка при обновлении токена:", refreshError.message);

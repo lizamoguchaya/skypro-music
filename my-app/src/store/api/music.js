@@ -16,7 +16,7 @@ export const musicApi = createApi ({
             
             }),
             transformResponse: (response) => {
-                return response.map((track) => ({ ...track, isFavorite: true }));
+                return response.map((track) => ({ ...track, isLike: true }));
               },
               providesTags: (result) =>
                 result

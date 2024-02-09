@@ -47,7 +47,7 @@ export async function registerUser({ email, password }) {
         password: password,
       }),
       headers: {
-        "content-type": "application/json",
+        "Content-Type": "application/json",
       },
     }).then((response) => response.json());
   }
@@ -61,7 +61,7 @@ export async function registerUser({ email, password }) {
         refresh: token,
       }),
       headers: {
-        "content-type": "application/json",
+        "Content-Type": "application/json",
       },
     }).then((response) => response.json());
   }
