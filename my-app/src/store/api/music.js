@@ -48,7 +48,8 @@ export const musicApi = createApi ({
                },
                method: 'DELETE'
    
-           })
+           }),
+           invalidatesTags: [{ type: "isFavorite", id: "LIST" }],
            })
 
       

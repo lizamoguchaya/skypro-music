@@ -53,7 +53,7 @@ function Tracklist({ tracks = [], getTracksError, isFavourite = false }) {
     e.stopPropagation();
     deleteTracks(track.id );
     console.log(track);
-    track.isLike = !track.isLike;
+    // track.isLike = !track.isLike;
     forceUpdate();
   }
  
