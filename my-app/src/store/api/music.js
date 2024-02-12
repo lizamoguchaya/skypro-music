@@ -50,13 +50,19 @@ export const musicApi = createApi ({
    
            }),
            invalidatesTags: [{ type: "isFavorite", id: "LIST" }],
-           })
-
+           }),
+          viewSelectionsById: builder.query({
+            query: ({ id }) => ({
+              url: `/selection/${id}/`,
+              method: "GET",
+            }),
+            transformResponse: (response) => {
+              return response.items.map((track) => ({ ...track, isFavorite: true }));
+            },
+          }),
+        }),
+      });
       
-    })
-    
 
-}) 
-
-export const { useGetAllTracksQuery, useGetFavouriteTracksQuery, useAddTrackMutation, useDeleteTrackMutation } = musicApi
+export const { useGetAllTracksQuery, useGetFavouriteTracksQuery, useAddTrackMutation, useDeleteTrackMutation, useViewSelectionsByIdQuery, } = musicApi
 export default musicApi.reducer

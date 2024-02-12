@@ -3,7 +3,7 @@ import { GlobalStyle } from "../../App.styles.js";
 import { useParams } from "react-router-dom";
 import * as S from "../PageStyles.js";
 
-export const Category = () => {
+export const Category = ({handleLogout}) => {
   const params = useParams();
 
   const category = Categories.find(
