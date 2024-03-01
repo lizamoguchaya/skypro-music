@@ -2,11 +2,12 @@ import * as Style from "./TracklistStyle.js";
 import { convertSecToMinAndSec } from "../../helpers.js";
 import PropTypes from "prop-types";
 import { useDispatch } from "react-redux";
-import { setCurrentTrack } from "../../store/actions/creators/todo.js";
+// import { setCurrentTrack } from "../../store/actions/creators/todo.js";
 import { useSelector } from "react-redux";
 import { useAddTrackMutation, useDeleteTrackMutation } from "../../store/api/music.js";
 import { useEffect, useReducer, useState } from 'react'
 import { refreshTokenUser } from "../../Api.js";
+import { setCurrentTrack } from "../../store/trackSlice.js";
 
 function Tracklist({ tracks = [], getTracksError, isFavourite = false }) {
   const dispatch = useDispatch();
@@ -15,7 +16,7 @@ function Tracklist({ tracks = [], getTracksError, isFavourite = false }) {
     dispatch(setCurrentTrack({ playlist: tracks, track: track }));
   };
 
-  const { currentTrack } = useSelector((store) => store.player);
+  const { currentTrack } = useSelector((store) => store.music);
   const { isPlaying } = useSelector((store) => store.player);
   const [addTracks, {error: addError, refetch: addRefetch}] = useAddTrackMutation ();
   const [deleteTracks,  {error: delError, refetch: deleteRefetch}] = useDeleteTrackMutation();

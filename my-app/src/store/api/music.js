@@ -1,11 +1,13 @@
 import {createApi, fetchBaseQuery} from '@reduxjs/toolkit/query/react'
 
 export const musicApi = createApi ({ 
-    reducerPath: 'musicApi',
+    reducerPath: 'musicApi', 
+    tagTypes: ["TRACKS"],
     baseQuery: fetchBaseQuery({baseUrl:'https://skypro-music-api.skyeng.tech/catalog'}),
     endpoints: (builder) => ({
         getAllTracks: builder.query ({
-            query: () => ({url:  '/track/all/'})
+            query: () => ({url:  '/track/all/'}),
+            providesTags: ["TRACKS"]
         }),
         getFavouriteTracks: builder.query ({
             query: () => ({
@@ -18,10 +20,7 @@ export const musicApi = createApi ({
             transformResponse: (response) => {
                 return response.map((track) => ({ ...track, isLike: true }));
               },
-              providesTags: (result) =>
-                result
-                  ? [{ type: "isFavorite", id: "LIST" }]
-                  : [{ type: "isFavorite", id: "LIST" }],
+              providesTags: ["TRACKS"]
             }),
             
         
@@ -36,7 +35,7 @@ export const musicApi = createApi ({
             method: 'POST'
 
         }),
-        invalidatesTags: [{ type: "isFavorite", id: "LIST" }],
+        invalidatesTags: ["TRACKS"],
         }),
        
         deleteTrack: builder.mutation ({
@@ -49,8 +48,9 @@ export const musicApi = createApi ({
                method: 'DELETE'
    
            }),
-           invalidatesTags: [{ type: "isFavorite", id: "LIST" }],
+           invalidatesTags: ["TRACKS"],
            }),
+
           viewSelectionsById: builder.query({
             query: ({ id }) => ({
               url: `/selection/${id}/`,

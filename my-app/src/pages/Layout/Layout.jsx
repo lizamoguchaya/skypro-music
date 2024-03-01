@@ -12,7 +12,7 @@ import Search from "../../components/Search/Search";
 
 
 const PageLayout = ({ handleLogout, tracks}) => {
-    const currentTrack = useSelector((state) => state.player.currentTrack);
+    const currentTrack = useSelector((state) => state.music.currentTrack.track);
 
 return (
     <>
