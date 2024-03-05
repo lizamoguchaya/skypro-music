@@ -154,7 +154,7 @@ function AudioPlayer({ track }) {
 
     console.log(track);
   }
-  const addDislikeTrack = (id) => { 
+  const addDislikeTrack = (id) => {
     deleteTrack(id);
 
     console.log(track);
@@ -239,21 +239,21 @@ function AudioPlayer({ track }) {
                   </S.TrackPlayAlbum>
                 </S.TrackPlayContain>
 
-                <S.TrackPlayLikeDis  > 
-                  
-                  {!track.isLike
-                  ? (<S.TrackPlayLike onClick={() => addlikeTrack (track.id)} >
-                  <S.TrackPlayLikeSvg alt="like">
-                    <use xlinkHref="/icon/sprite.svg#icon-like"></use>
-                  </S.TrackPlayLikeSvg>
-                </S.TrackPlayLike>)
-                  
-                  : (<S.TrackPlayDislike onClick={() => addDislikeTrack (track.id)}>
-                  <S.TrackPlayDislikeSvg alt="dislike">
-                    <use xlinkHref="/icon/sprite.svg#icon-liked"></use>
-                  </S.TrackPlayDislikeSvg>
-                </S.TrackPlayDislike>)
-                  }
+                <S.TrackPlayLikeDis  >
+
+
+                  <S.TrackPlayLike onClick={() => addlikeTrack(track.id)} >
+                    <S.TrackPlayLikeSvg alt="like">
+                      <use xlinkHref="/icon/sprite.svg#icon-like"></use>
+                    </S.TrackPlayLikeSvg>
+                  </S.TrackPlayLike>
+
+                  <S.TrackPlayDislike onClick={() => addDislikeTrack(track.id)}>
+                    <S.TrackPlayDislikeSvg alt="dislike">
+                      <use xlinkHref="/icon/sprite.svg#icon-dislike"></use>
+                    </S.TrackPlayDislikeSvg>
+                  </S.TrackPlayDislike>
+
 
                 </S.TrackPlayLikeDis>
               </S.PlayerTrackPlay>

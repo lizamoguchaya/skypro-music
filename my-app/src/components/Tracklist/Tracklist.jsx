@@ -8,7 +8,11 @@ import { setCurrentTrack } from "../../store/trackSlice.js";
 
 function Tracklist({ tracks = [], getTracksError, isFavourite = false }) {
   const dispatch = useDispatch();
-
+  const storeFilter = useSelector((store) => store.filter);
+  const filteredTracks = tracks.filter((track) => {
+    const isValid = storeFilter.search === "" ? true : track.name.toUpperCase().includes(storeFilter.search.toUpperCase());
+   return isValid;
+  });
   const handleCurrentTrackId = (track) => {
     dispatch(setCurrentTrack({ playlist: tracks, track: track }));
   };
@@ -17,6 +21,7 @@ function Tracklist({ tracks = [], getTracksError, isFavourite = false }) {
   const { isPlaying } = useSelector((store) => store.player);
   const [addTracks, {error: addError, refetch: addRefetch}] = useAddTrackMutation ();
   const [deleteTracks,  {error: delError, refetch: deleteRefetch}] = useDeleteTrackMutation();
+  
 
   const handleAddTrack = async (e, track) => {
     e.stopPropagation();
@@ -45,7 +50,7 @@ function Tracklist({ tracks = [], getTracksError, isFavourite = false }) {
       <p>{getTracksError}</p>
 
       <Style.ContentPlaylist>
-        {tracks.length > 0 &&  tracks.map((track) => (
+        {filteredTracks.length > 0 &&  filteredTracks.map((track) => (
           <Style.PlaylistItem key={track.id}>
             <Style.PlaylistTrack>
               <Style.TrackTitle>

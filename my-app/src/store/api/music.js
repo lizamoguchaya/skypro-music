@@ -94,7 +94,7 @@ export const musicApi = createApi ({
     }),
     getFavouriteTracks: builder.query ({
       query: () => ({
-          url:  '/track/favorite/all/',            
+          url:  '/catalog/track/favorite/all/',            
       }),
       transformResponse: (response) => {
           return response.map((track) => ({ ...track, isLike: true }));
