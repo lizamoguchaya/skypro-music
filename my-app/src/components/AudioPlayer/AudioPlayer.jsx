@@ -10,17 +10,26 @@ import {
   pause,
 } from "../../store/actions/creators/todo.js";
 import { useDispatch } from "react-redux";
+import { useAddTrackMutation, useDeleteTrackMutation } from "../../store/api/music.js";
 
 
 
 function AudioPlayer({ track }) {
+  const myUser = JSON.parse(localStorage.getItem("user"));
+  const [addTrack] = useAddTrackMutation();
+  const [deleteTrack] = useDeleteTrackMutation();
   const [isPlaying, setIsPlaying] = useState(false); //воспроизведение трека
   const [isMix, setIsMix] = useState(false);
   //повторение трека по кругу
   const [isLooped, setIsLooped] = useState(false);
   //текущее время воспроизведения аудио
   const [currentTime, setCurrentTime] = useState(0);
-
+  const [isLike, setIsLike] = useState(false);
+  const likeTrack = Boolean(track.stared_user.find(el => el.id === myUser.id))
+  console.log(track);
+  useEffect( () => {
+  setIsLike(likeTrack)
+  }, [track])
   const dispatch = useDispatch();
 
   const handleMix = () => {
@@ -148,6 +157,13 @@ function AudioPlayer({ track }) {
   };
   const toggleLoop = isLooped ? handleUnloop : handleLoop;
 
+  const addlikeTrack = (id) => {
+    addTrack(id);
+  }
+  const addDislikeTrack = (id) => { 
+    deleteTrack(id);
+  }
+
   return (
     <>
       <S.StandartAudioPlayer controls ref={audioRef}>
@@ -229,13 +245,13 @@ function AudioPlayer({ track }) {
                   </S.TrackPlayAlbum>
                 </S.TrackPlayContain>
 
-                <S.TrackPlayLikeDis>
-                  <S.TrackPlayLike>
+                <S.TrackPlayLikeDis  > 
+                  <S.TrackPlayLike onClick={() => addlikeTrack (track.id)} >
                     <S.TrackPlayLikeSvg alt="like">
                       <use xlinkHref="/icon/sprite.svg#icon-like"></use>
                     </S.TrackPlayLikeSvg>
                   </S.TrackPlayLike>
-                  <S.TrackPlayDislike>
+                  <S.TrackPlayDislike onClick={() => addDislikeTrack (track.id)}>
                     <S.TrackPlayDislikeSvg alt="dislike">
                       <use xlinkHref="/icon/sprite.svg#icon-dislike"></use>
                     </S.TrackPlayDislikeSvg>

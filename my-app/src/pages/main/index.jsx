@@ -11,49 +11,59 @@ import { EmulationApp } from "../../components/Emulation/EmulationApp.jsx";
 import { getAllTracks } from "../../Api.js";
 import PropTypes from "prop-types";
 import { useSelector } from "react-redux";
+import { useGetAllTracksQuery } from "../../store/api/music.js";
 // import { handleStart, handleStop, handleTrackPlay } from "../../components/AudioPlayer/AudioPlayer.jsx";
 
 export const Main = ({ handleLogout }) => {
-  const [loading, setLoading] = useState(true); //показ эмуляции загрузки(скелетон)
-  const [tracks, setTracks] = useState(true); //показ полученного треклиста из API
+  // const [loading, setLoading] = useState(true); //показ эмуляции загрузки(скелетон)
+  // const [tracks, setTracks] = useState(true); //показ полученного треклиста из API
   const [tracksError, setTracksError] = useState(true); //ошибка при получении треклиста из API
-
+  const {data: tracks, isLoading: loading} = useGetAllTracksQuery();
   const currentTrack = useSelector((state) => state.player.currentTrack);
+  const myUser = JSON.parse(localStorage.getItem("user"));
+  console.log(myUser);
+  const mappedTracks = tracks?.map((track) => {
+    const isLike = track.stared_user?.filter((user)=> user.id === myUser.id).length > 0 ? true : false;
+    return {
+      ...track,
+      isLike
+    };
+  }); 
 
-  useEffect(() => {
-    getAllTracks()
-      .then((tracks) => {
-        setTracks(tracks);
-        setLoading(false);
-      })
-      .catch((error) => {
-        setTracksError(
-          `Не удалось загрузить плейлист, попробуйте позже: ${error.message}`
-        );
-      })
-      .finally(() => setLoading(false));
-  }, []);
+  // useEffect(() => {
+  //   getAllTracks()
+  //     .then((tracks) => {
+  //       setTracks(tracks);
+  //       setLoading(false);
+  //     })
+  //     .catch((error) => {
+  //       setTracksError(
+  //         `Не удалось загрузить плейлист, попробуйте позже: ${error.message}`
+  //       );
+  //     })
+  //     .finally(() => setLoading(false));
+  // }, []);
 
   return loading ? (
     <EmulationApp handleLogout={handleLogout} />
   ) : (
-    <S.Wrapper>
+    <>
       <GlobalStyle />
       <S.Container>
         <S.Main>
-          <NavMenu handleLogout={handleLogout} />
+          {/* <NavMenu handleLogout={handleLogout} /> */}
           <div>
             <Search />
             <S.CenterblockH2>Треки</S.CenterblockH2>
             <Filters />
-            <Tracklist tracks={tracks} tracksError={tracksError} />
+            <Tracklist tracks={mappedTracks} tracksError={tracksError} />
           </div>
-          <Sidebar tracks={tracks} handleLogout={handleLogout} />
+          {/* <Sidebar tracks={tracks} handleLogout={handleLogout} /> */}
         </S.Main>
-        {currentTrack ? <AudioPlayer track={currentTrack} /> : null}
+        {/* {currentTrack ? <AudioPlayer track={currentTrack} /> : null} */}
         <footer></footer>
       </S.Container>
-    </S.Wrapper>
+    </>
   );
 };
 
