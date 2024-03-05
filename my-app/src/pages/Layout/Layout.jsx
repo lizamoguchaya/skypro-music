@@ -5,14 +5,9 @@ import AudioPlayer from "../../components/AudioPlayer/AudioPlayer.jsx";
 import { useSelector } from "react-redux";
 import NavMenu from "../../components/NavMenu/NavMenu.jsx";
 import Sidebar from "../../components/Sidebar/Sidebar.jsx";
-import Search from "../../components/Search/Search";
-
-
-
-
 
 const PageLayout = ({ handleLogout, tracks}) => {
-    const currentTrack = useSelector((state) => state.music.currentTrack.track);
+    const currentTrack = useSelector((state) => state.music.currentTrack?.track);
 
 return (
     <>

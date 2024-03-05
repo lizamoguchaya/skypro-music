@@ -12,34 +12,18 @@ import { useDispatch } from "react-redux";
 function App() {
   const [user, setUser] = useState(JSON.parse(localStorage.getItem("user")));
 
-  const navigate = useNavigate();
-  const dispatch = useDispatch();
-
-  const handleLogout = () => {
-    localStorage.removeItem("user");
-    dispatch(removeCurrentTrack());
-    navigate("/login");
-    setUser(null);
-    
-  };
-
   return (
     <>
-      <UserContext.Provider
-        value={{ userData: user, changingUserData: setUser }}
-      >
-        <GlobalStyle />
-        <S.Wrapper>
-          <S.Container>
-            <AppRoutes
-              user={user}
-              // setUser={setUser}
-              handleLogout={handleLogout}
-              // setCurrentTrack={setCurrentTrack}
-            />
-          </S.Container>
-        </S.Wrapper>
-      </UserContext.Provider>
+      <GlobalStyle />
+      <S.Wrapper>
+        <S.Container>
+          <AppRoutes
+            user={user}
+            setUser={setUser}
+            // setCurrentTrack={setCurrentTrack}
+          />
+        </S.Container>
+      </S.Wrapper>
     </>
   );
 }
