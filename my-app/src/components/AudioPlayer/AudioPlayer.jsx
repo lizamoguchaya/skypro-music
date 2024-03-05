@@ -12,10 +12,7 @@ import {
 import { useDispatch } from "react-redux";
 import { useAddTrackMutation, useDeleteTrackMutation } from "../../store/api/music.js";
 
-
-
 function AudioPlayer({ track }) {
-  const myUser = JSON.parse(localStorage.getItem("user"));
   const [addTrack] = useAddTrackMutation();
   const [deleteTrack] = useDeleteTrackMutation();
   const [isPlaying, setIsPlaying] = useState(false); //воспроизведение трека
@@ -24,12 +21,7 @@ function AudioPlayer({ track }) {
   const [isLooped, setIsLooped] = useState(false);
   //текущее время воспроизведения аудио
   const [currentTime, setCurrentTime] = useState(0);
-  const [isLike, setIsLike] = useState(false);
-  const likeTrack = Boolean(track.stared_user.find(el => el.id === myUser.id))
   console.log(track);
-  useEffect( () => {
-  setIsLike(likeTrack)
-  }, [track])
   const dispatch = useDispatch();
 
   const handleMix = () => {
@@ -159,9 +151,13 @@ function AudioPlayer({ track }) {
 
   const addlikeTrack = (id) => {
     addTrack(id);
+
+    console.log(track);
   }
   const addDislikeTrack = (id) => { 
     deleteTrack(id);
+
+    console.log(track);
   }
 
   return (
@@ -173,9 +169,7 @@ function AudioPlayer({ track }) {
         <S.BarContent>
           <S.TrackTime>
             {convertSecToMinAndSec(currentTime) +
-              " " +
-              "/" +
-              " " +
+              " / " +
               convertSecToMinAndSec(duration)}
           </S.TrackTime>
           <S.BarPlayerProgress onClick={handleProgressBarClick}>
@@ -246,16 +240,21 @@ function AudioPlayer({ track }) {
                 </S.TrackPlayContain>
 
                 <S.TrackPlayLikeDis  > 
-                  <S.TrackPlayLike onClick={() => addlikeTrack (track.id)} >
-                    <S.TrackPlayLikeSvg alt="like">
-                      <use xlinkHref="/icon/sprite.svg#icon-like"></use>
-                    </S.TrackPlayLikeSvg>
-                  </S.TrackPlayLike>
-                  <S.TrackPlayDislike onClick={() => addDislikeTrack (track.id)}>
-                    <S.TrackPlayDislikeSvg alt="dislike">
-                      <use xlinkHref="/icon/sprite.svg#icon-dislike"></use>
-                    </S.TrackPlayDislikeSvg>
-                  </S.TrackPlayDislike>
+                  
+                  {!track.isLike
+                  ? (<S.TrackPlayLike onClick={() => addlikeTrack (track.id)} >
+                  <S.TrackPlayLikeSvg alt="like">
+                    <use xlinkHref="/icon/sprite.svg#icon-like"></use>
+                  </S.TrackPlayLikeSvg>
+                </S.TrackPlayLike>)
+                  
+                  : (<S.TrackPlayDislike onClick={() => addDislikeTrack (track.id)}>
+                  <S.TrackPlayDislikeSvg alt="dislike">
+                    <use xlinkHref="/icon/sprite.svg#icon-liked"></use>
+                  </S.TrackPlayDislikeSvg>
+                </S.TrackPlayDislike>)
+                  }
+
                 </S.TrackPlayLikeDis>
               </S.PlayerTrackPlay>
             </S.BarPlayer>

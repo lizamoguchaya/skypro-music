@@ -1,13 +1,9 @@
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import * as S from "./register.styles"
-import { useContext, useEffect, useRef, useState } from "react";
-import { registerUser } from "../../Api.js";
-import { UserContext } from "../../Authorization";
+import { useEffect, useRef, useState } from "react";
+import { getTokenUser, registerUser } from "../../Api.js";
 
-export default function Register() {
-  const navigate = useNavigate();
-
-  const { changingUserData } = useContext(UserContext);
+export default function Register({loginCallback}) {
 
   const [error, setError] = useState(null);
   const [email, setEmail] = useState("");
@@ -43,9 +39,8 @@ export default function Register() {
       const response = await registerUser({ email, password });
       if (response.ok) {
         const user = await response.json();
-        localStorage.setItem("user", JSON.stringify(user));
-        changingUserData(user);
-        navigate("/login");
+        const newToken =  await getTokenUser({email, password});
+        loginCallback(user, newToken);
       } else {
         if (response.status === 400) {
           const errorData = await response.json();

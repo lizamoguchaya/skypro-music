@@ -1,17 +1,16 @@
 import * as Styled from './Sidebar.js'
 import Playlists from '../Playlists/Playlists.jsx';
-import { useContext } from "react";
-import { UserContext } from "../../Authorization.js";
 import PropTypes from "prop-types";
+import { useSelector } from 'react-redux';
 
 export function Sidebar({ handleLogout }) {
-  const { userData } = useContext(UserContext);
+  const userData = useSelector((store) => store.auth);
 
   return (
     <Styled.MainSidebar>
       <Styled.SidebarPersonal>
         <Styled.SidebarPersonalName> 
-          {userData.username}
+          {userData?.username}
           </Styled.SidebarPersonalName>
           <Styled.SidebarIcon onClick={handleLogout}>
           <svg alt="logout">

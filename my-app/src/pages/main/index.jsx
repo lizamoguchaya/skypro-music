@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useState } from "react";
 import * as S from "../../App.styles.js";
 import { GlobalStyle } from "../../App.styles.js";
 import AudioPlayer from "../../components/AudioPlayer/AudioPlayer.jsx";
@@ -8,7 +8,6 @@ import Search from "../../components/Search/Search.jsx";
 import Sidebar from "../../components/Sidebar/Sidebar.jsx";
 import Tracklist from "../../components/Tracklist/Tracklist.jsx";
 import { EmulationApp } from "../../components/Emulation/EmulationApp.jsx";
-import { getAllTracks } from "../../Api.js";
 import PropTypes from "prop-types";
 import { useSelector } from "react-redux";
 import { useGetAllTracksQuery } from "../../store/api/music.js";
@@ -20,29 +19,6 @@ export const Main = ({ handleLogout }) => {
   const [tracksError, setTracksError] = useState(true); //ошибка при получении треклиста из API
   const {data: tracks, isLoading: loading} = useGetAllTracksQuery();
   const currentTrack = useSelector((state) => state.player.currentTrack);
-  const myUser = JSON.parse(localStorage.getItem("user"));
-  console.log(myUser);
-  const mappedTracks = tracks?.map((track) => {
-    const isLike = track.stared_user?.filter((user)=> user.id === myUser.id).length > 0 ? true : false;
-    return {
-      ...track,
-      isLike
-    };
-  }); 
-
-  // useEffect(() => {
-  //   getAllTracks()
-  //     .then((tracks) => {
-  //       setTracks(tracks);
-  //       setLoading(false);
-  //     })
-  //     .catch((error) => {
-  //       setTracksError(
-  //         `Не удалось загрузить плейлист, попробуйте позже: ${error.message}`
-  //       );
-  //     })
-  //     .finally(() => setLoading(false));
-  // }, []);
 
   return loading ? (
     <EmulationApp handleLogout={handleLogout} />
@@ -56,7 +32,7 @@ export const Main = ({ handleLogout }) => {
             <Search />
             <S.CenterblockH2>Треки</S.CenterblockH2>
             <Filters />
-            <Tracklist tracks={mappedTracks} tracksError={tracksError} />
+            <Tracklist tracks={tracks} tracksError={tracksError} />
           </div>
           {/* <Sidebar tracks={tracks} handleLogout={handleLogout} /> */}
         </S.Main>

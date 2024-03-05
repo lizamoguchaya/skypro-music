@@ -3,10 +3,10 @@ import * as S from "../register/register.styles";
 import { useContext, useEffect, useRef, useState } from "react";
 import { getTokenUser, loginUser } from "../../Api";
 import { UserContext } from "../../Authorization";
+import { useDispatch } from "react-redux";
+import { addUserInfo } from "../../store/actions/creators/api";
 
-export default function Login() {
-  const navigate = useNavigate();
-
+export default function Login({loginCallback}) {
   const { changingUserData } = useContext(UserContext);
 
   const [error, setError] = useState(null);
@@ -33,12 +33,8 @@ export default function Login() {
 
       if (response.ok) {
         const user = await response.json();
-        localStorage.setItem("user", JSON.stringify(user));
-        changingUserData(user);
-       const newToken =  await getTokenUser({email, password});
-       localStorage.setItem("access", newToken.access);
-       localStorage.setItem("refresh", newToken.refresh);
-        navigate("/");
+        const newToken =  await getTokenUser({email, password});
+        loginCallback(user, newToken);
       } else {
         if (response.status === 400) {
           const errorData = await response.json();
